@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/basic}">
+<head>
+    <title>Convert File</title>
+</head>
+<body>
+
+<div layout:fragment="main">
+    <div id="pageContent" class="home-page">
+        <div class="container column">
+            <h2>Choose file to convert File</h2>
+            <br/>
+            <input id="inputFile" type="file" name="file" multiple="false" data-upload-url="/file/uploadAttachment">
+        </div>
+
+        <div class="container column">
+            <h2>Result</h2>
+            <br/>
+            <div id="result" class="content is-full" style="min-height:50px;border: 1px solid black; word-break: break-all"></div>
+        </div>
+
+
+    </div>
+</div>
+
+<script layout:fragment="script">
+    $(function () {
+        $('#inputFile').on('change', function () {
+            console.log('changed')
+
+            let formData = new FormData();
+            formData.append("file", document.getElementById('inputFile').files[0]);
+
+            let request = new XMLHttpRequest();
+            request.open('POST', '/file/file-to-base-64', true);
+            request.onload = function () {
+                if (this.status >= 200 && this.status < 400) {
+                    let response = this.response;
+                    $('#result').text(this.response)
+                    console.log(response);
+                } else {
+                    console.log('SERVER RETURN ERROR');
+                    console.log(this.response);
+                }
+            }
+
+            request.onerror = function () {
+                console.log(this.response)
+            }
+
+            request.send(formData);
+        })
+    })
+</script>
+</body>
+</html>

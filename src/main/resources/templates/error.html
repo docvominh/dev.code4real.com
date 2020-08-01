@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/basic}">
+<head>
+    <title>ERROR</title>
+</head>
+
+<body>
+<div layout:fragment="main">
+    <br/><br/><br/>
+    <h1 class="title is-1" th:text="${code}"></h1>
+    <div th:if="${code eq 404}">
+        <h1 class="title is-3 has-text-danger">Không tìm thấy đường dẫn này</h1>
+    </div>
+
+    <div th:if="${code eq 403}">
+        <h1 class="title is-3 has-text-danger">Bạn không có quyền truy cập đường dẫn này</h1>
+    </div>
+
+    <!--    <div sec:authorize="hasAuthority('ADMIN')">-->
+    <!--        This content is only shown to administrators.-->
+    <!--    </div>-->
+
+    <!--    <div sec:authorize="hasAuthority('EMPLOYEE')">-->
+    <!--        This content is only shown to users.-->
+    <!--    </div>-->
+
+    <br/>
+    Logged user: <span sec:authentication="name"></span>
+    <br/>
+    <!--    Roles: <span sec:authentication="principal.authorities"></span>-->
+</div>
+</body>
+</html>

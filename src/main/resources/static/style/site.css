@@ -1,0 +1,10 @@
+﻿.drop-menu-icon {
+    font-weight: 700;
+    margin-left: 3px;
+    margin-top: 3px;
+    width: 16px;
+}
+
+.navbar-link::after {
+    display: none !important;
+}
